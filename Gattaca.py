@@ -23,9 +23,9 @@ def Parser():
     parser = argparse.ArgumentParser()
 
     requiredNamed = parser.add_argument_group("Required Arguments")
-    geneList = parser.add_argument("-f", "--geneList", dest="geneList", default="./tests/TestGenes.txt", help="List of genes, one per line to use for GattacaExample.Gattaca.", required=True)
-    output = parser.add_argument("-o", "--output", dest="outputLoc", default="./tests/GattacaEx/src/", help="Output directory for classes to be used with HAL.", required=True)
-    genome = parser.add_argument("-g", "--genome", dest="genome", default="GRCh37.75", help="Reference genome to use.")
+    requiredNamed.add_argument("-f", "--geneList", dest="geneList", default="./GattacaExample/TestGenes.txt", help="List of genes, one per line to use for GattacaExample.Gattaca.", required=True)
+    requiredNamed.add_argument("-o", "--output", dest="outputLoc", default="./GattacaExample/src/", help="Output directory for classes to be used with HAL.", required=True)
+    requiredNamed.add_argument("-g", "--genome", dest="genome", default="GRCh37.75", help="Reference genome to use.")
 
     outputNamed = parser.add_argument_group("Output options")
     outputNamed.add_argument("-b", "--getBams", dest="getBams", default=False, action='store_true', help="Specifies whether to create a BAM file for use post simulation.")
@@ -39,8 +39,8 @@ def Parser():
 
     Options = parser.parse_args()  # main user args
 
-    if Options.output[len(Options.output)-1]!="/":
-        Options.output+="/"
+    if Options.outputLoc[len(Options.outputLoc)-1]!="/":
+        Options.outputLoc+="/"
 
     try:
         Options.mutRate = float(Options.mutRate)
@@ -74,8 +74,8 @@ if __name__=="__main__":
     Step 1: Read in the target names. Get the gene information (length) location. etc.
     '''
     geneLocs = GeneLocs(Options, snpeff)
-    pickle.dump(geneLocs, open('file.p', 'wb')) # TODO Delete when done with dev
-    geneLocs = pickle.load(open('file.p', 'rb')) # TODO Delete when done with dev
+    # pickle.dump(geneLocs, open('file.p', 'wb')) # TODO Delete when done with dev
+    # geneLocs = pickle.load(open('file.p', 'rb')) # TODO Delete when done with dev
 
     '''
     Step 2: Get the sequences into a FASTA file
